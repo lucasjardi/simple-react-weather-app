@@ -1,24 +1,49 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useState } from 'react';
+
+import {
+  Formik,
+  Form,
+  Field,
+} from 'formik';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+import { fetchCurrentAndDailyForecast } from './api-utils/open-weather';
+import { Weather } from './models/weather';
+import { GlobalStyles } from './global-styles.styles';
+import WeatherCard from './components/Weather-card';
 
 function App() {
+
+  const [weather, setWeather] = useState<{ currentWeather: Weather, dailyForecast: Weather[] } | undefined>(undefined);
+
+  const initialValues: { city: string } = { city: '' };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <GlobalStyles />
+      <ToastContainer />
+
+      <Formik
+        initialValues={initialValues}
+        onSubmit={(values, { setSubmitting, resetForm }) => {          
+          fetchCurrentAndDailyForecast(values.city)
+            .then(values => setWeather(values))
+            .catch((err: Error) => {              
+              resetForm();
+              toast.error(err.message);
+            })
+            .finally(() => setSubmitting(false));
+        }}
+      >{({ isSubmitting }) => (
+        <Form>
+          <Field id="city" name="city" placeholder="City" className="input" />
+          <button className="button" type="submit" disabled={isSubmitting}>Submit</button>
+        </Form>
+      )}</Formik>
+
+      {!!weather && <WeatherCard currentWeather={weather.currentWeather}
+                                 dailyForecast={weather.dailyForecast}></WeatherCard>}
     </div>
   );
 }
