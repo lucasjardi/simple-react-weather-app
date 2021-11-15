@@ -38,7 +38,7 @@ function App() {
         }}
       >{({ isSubmitting }) => (
         <Form>
-          <Field id="city" name="city" placeholder="City" className="input" />
+          <Field id="city" name="city" placeholder="City" className="input" autofocus="autofocus" />
           <button className="button" type="submit" disabled={isSubmitting}>Submit</button>
         </Form>
       )}</Formik>
