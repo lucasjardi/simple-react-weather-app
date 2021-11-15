@@ -26,7 +26,7 @@ export async function fetchCurrentAndDailyForecast(city: string): Promise<{ curr
                     temp_max: currentWeatherBody.main.temp_max,
                     temp_min: currentWeatherBody.main.temp_min,
                 },
-                dailyForecast: dailyForecastBody?.daily?.map((weather: any) => ({
+                dailyForecast: dailyForecastBody?.daily?.slice(0, 5).map((weather: any) => ({
                     temp: weather.temp.day,
                     temp_max: weather.temp.max,
                     temp_min: weather.temp.min,

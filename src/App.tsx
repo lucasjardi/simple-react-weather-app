@@ -12,6 +12,7 @@ import { fetchCurrentAndDailyForecast } from './api-utils/open-weather';
 import { Weather } from './models/weather';
 import { GlobalStyles } from './global-styles.styles';
 import WeatherCard from './components/Weather-card';
+import ForecastChart from './components/Forecast-chart';
 
 function App() {
 
@@ -44,6 +45,8 @@ function App() {
 
       {!!weather && <WeatherCard currentWeather={weather.currentWeather}
                                  dailyForecast={weather.dailyForecast}></WeatherCard>}
+
+      {!!weather?.dailyForecast && <ForecastChart dailyForecast={weather.dailyForecast}></ForecastChart>}
     </div>
   );
 }

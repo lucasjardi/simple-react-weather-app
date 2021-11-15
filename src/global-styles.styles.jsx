@@ -15,7 +15,7 @@ export const GlobalStyles = createGlobalStyle`
         align-items: center;
         display: flex;
         justify-content: center;
-        margin-bottom: 1rem;
+        margin-bottom: 24px;
 
         input {
             width: 600px;
@@ -24,6 +24,12 @@ export const GlobalStyles = createGlobalStyle`
         button {
             margin-left: 8px;
         }
+    }
+
+    .card {
+        background: #fff;
+        border-radius: 2px;
+        box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
     }
 
     .input {

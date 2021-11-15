@@ -4,7 +4,7 @@ import { Weather } from "../models/weather";
 
 const Card = (props: { className?: string, currentWeather: Weather, dailyForecast: Weather[] }) => {
     return (
-        <div className={props.className}>
+        <div className={`${ props.className } card`}>
             <div className="main-temp">
                 <h1>{Math.round(props.currentWeather.temp)}°</h1>
                 <h2>{props.currentWeather.city}</h2>
@@ -13,7 +13,7 @@ const Card = (props: { className?: string, currentWeather: Weather, dailyForecas
             <div>low high</div>
 
             <div className="daily-forecast">
-                {props.dailyForecast.slice(0, 5).map((forecast, index) => {
+                {props.dailyForecast.map((forecast, index) => {
                     return (
                         <div key={index}>
                             {!!forecast.dt && <span>{new Date(forecast.dt * 1000).toLocaleDateString()}</span>}
@@ -27,10 +27,7 @@ const Card = (props: { className?: string, currentWeather: Weather, dailyForecas
 }
 
 const WeatherCard = styled(Card)`
-    background: #fff;
-    border-radius: 2px;
     padding: 2rem;
-    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 
     .main-temp {
         display: flex;
